@@ -1,0 +1,11 @@
+### GET
+GET http://localhost:8989/v1/users/echo
+
+### POST
+POST http://localhost:8989/v1/users/echo
+Content-Type: application/json
+
+{
+  "message": "Hello Lady",
+  "name": "Japer"
+}
