@@ -1,5 +1,7 @@
 use actix_web::{get, post, HttpResponse, Responder};
 
+
+//TODO replace the functionality with proper crud representation
 #[get("/")]
 async fn hello() -> impl Responder {
     HttpResponse::Ok().body("Hello User")

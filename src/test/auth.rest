@@ -1,0 +1,16 @@
+### GET
+GET http://127.0.0.1:8080/v1/users/
+
+### GET
+GET http://127.0.0.1:8080/v1/auth/signout
+
+
+### POST
+POST http://127.0.0.1:8080/v1/users/echo
+Content-Type: application/json
+
+{
+  "message": "Hello Lady",
+  "name": "Japer"
+}
+
