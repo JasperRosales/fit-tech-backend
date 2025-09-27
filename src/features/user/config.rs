@@ -1,7 +1,6 @@
 use actix_web::web;
-use super::handler::{hello, echo};
+use super::handler::{get_users};
 
 pub fn routes(cfg: &mut web::ServiceConfig) {
-    cfg.service(hello)
-       .service(echo);
+    cfg.service(get_users);
 }

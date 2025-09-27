@@ -1,13 +1,26 @@
-use actix_web::{get, post, HttpResponse, Responder};
+use actix_web::{get, web, HttpResponse, Responder};
+use sea_orm::DatabaseConnection;
+use crate::features::user::model::{Entity as UserEntity};
+use crate::features::user::dto::UserResponse;
+use sea_orm::EntityTrait;
 
 
-//TODO replace the functionality with proper crud representation
 #[get("/")]
-async fn hello() -> impl Responder {
-    HttpResponse::Ok().body("Hello User")
-}
+pub async fn get_users(db: web::Data<DatabaseConnection>) -> impl Responder {
+    let users_result = UserEntity::find()
+        .all(db.get_ref())
+        .await;
 
-#[post("/echo")]
-async fn echo(req_body: String) -> impl Responder {
-    HttpResponse::Ok().body(req_body)
+    match users_result {
+        Ok(users) => {
+            let response: Vec<UserResponse> = users.into_iter()
+                .map(UserResponse::from)
+                .collect();
+            HttpResponse::Ok().json(response)
+        }
+        Err(e) => {
+            eprintln!("DB error: {:?}", e);
+            HttpResponse::InternalServerError().finish()
+        }
+    }
 }
